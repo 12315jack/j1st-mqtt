@@ -1,0 +1,37 @@
+apply plugin: 'application'
+
+mainClassName = "com.github.longkerdandy.mithqtt.broker.MqttBroker"
+
+// If your application requires a specific set of JVM settings or system properties, you can configure the applicationDefaultJvmArgs property.
+// These JVM arguments are applied to the run task and also considered in the generated start scripts of your distribution.
+applicationDefaultJvmArgs = ["-Dlogback.configurationFile=config/logback.xml", "-Dhazelcast.config=config/hazelcast.xml"]
+
+dependencies {
+    // project
+    compile project(':mithqtt-api')
+    compile project(':mithqtt-storage-redis')
+
+    compile project(':mithqtt-storage-mongo')
+
+    // authenticator
+    runtime project(':mithqtt-authenticator-dummy')
+
+    // communicator
+    runtime project(':mithqtt-communicator-hazelcast')
+    runtime project(':mithqtt-communicator-rabbitmq')
+    runtime project(':mithqtt-communicator-kafka')
+
+    // metrics
+    runtime project(':mithqtt-metrics-influxdb')
+
+    // netty
+    compile 'io.netty:netty-transport:4.1.0.CR2'
+    compile 'io.netty:netty-transport-native-epoll:4.1.0.CR2'
+}
+
+startScripts {
+    doLast {
+        unixScript.text = unixScript.text.replace('$CLASSPATH', '$APP_HOME/lib/*')
+        windowsScript.text = windowsScript.text.replace('%CLASSPATH%', '%APP_HOME%\\lib\\*')
+    }
+}

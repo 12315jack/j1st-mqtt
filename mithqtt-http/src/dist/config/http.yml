@@ -1,0 +1,44 @@
+# MQTT Http Interface configuration
+
+# Http
+
+# This is the server id, please make sure each server instance used a different id
+serverId: 1
+
+# These are regexp validator for MQTT packet field
+# Fields will validate against the regexp whenever a related request is received
+# Leave empty to skip the validation
+clientIdValidator : ^[ -~]+$
+topicNameValidator : ^[ -~]+$
+topicFilterValidator : ^[ -~]+$
+
+
+# DropWizard
+logging:
+  level: INFO
+  loggers:
+      "mithqtt-http": DEBUG
+  appenders:
+    - type: console
+      threshold: ALL
+      target: stdout
+      timeZone: Asia/Shanghai
+      logFormat: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %c{20} - %msg%n %ex{full}"
+    - type: file
+      currentLogFilename: log/mqhttp.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /log/http-%d.log
+      archivedFileCount: 5
+      timeZone: Asia/Shanghai
+      logFormat: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %c{20} - %msg%n %ex{full}"
+
+
+
+server:
+  type: simple
+  applicationContextPath: /mqtt
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8081
