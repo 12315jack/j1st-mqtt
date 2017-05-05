@@ -43,7 +43,7 @@ This is the high level architecture design for a typical application service usi
 - InfluxDB: Optional storage for MQTT Broker and MQTT HTTP Interface metrics.
 - Cloud Service: Application service which can receive inbound MQTT (Internal Format) messages from Communicator, and send outbound MQTT (Internal Format) messages from MQTT HTTP Interface.
 
-![Mithqtt Architecture](https://github.com/longkerdandy/mithqtt/blob/master/architecture.jpg)
+![Mithqtt Architecture](https://github.com/12315jack/j1st-mqtt/blob/master/architecture.jpg)
 
 ### Interoperability Test
 Mithqtt broker is tested against Eclipse Paho's [MQTT Conformance/Interoperability Testing](http://www.eclipse.org/paho/clients/testing/).
