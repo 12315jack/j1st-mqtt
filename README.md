@@ -1,4 +1,4 @@
-### Mithqtt
+### J1st-mqtt
 MQTT Message Broker with Scalability written in Java.
 
 [![Build Status](https://travis-ci.org/longkerdandy/mithril-mqtt.svg?branch=master)](https://travis-ci.org/longkerdandy/mithril-mqtt)
@@ -8,12 +8,12 @@ MQTT Message Broker with Scalability written in Java.
 ### What is MQTT
 [MQTT](http://mqtt.org) is an open industry standard, specifying a light weight publish-subscribe messaging protocol. It is well suited for constrained devices on unreliable networks.
 
-### What is Mithqtt
-Mithqtt is an open source, distributed MQTT message broker for real world. It embraces the [Microservices Architecture](http://microservices.io), and designed to fit into complex server-side application.
+### What is J1st-mqtt
+J1st-mqtt is an open source, distributed MQTT message broker for real world. It embraces the [Microservices Architecture](http://microservices.io), and designed to fit into complex server-side application.
 
-As a MQTT message broker, Mithqtt scales both horizontally and vertically on commodity hardware to support a large number of concurrent MQTT clients while maintaing low latency and fault tolerence.
+As a MQTT message broker, J1st-mqtt scales both horizontally and vertically on commodity hardware to support a large number of concurrent MQTT clients while maintaing low latency and fault tolerence.
 
-As a Microservice, Mithqtt is small self contained with little external dependencies, using pluggable Communicator to coexist with other microservices.
+As a Microservice, J1st-mqtt is small self contained with little external dependencies, using pluggable Communicator to coexist with other microservices.
 
 ### Features
 - Fully compatible with MQTT v3.1.1 specification.
@@ -24,29 +24,29 @@ As a Microservice, Mithqtt is small self contained with little external dependen
   - Support retain message.
   - Support topic name and topic filter (with wildcards).
   - Strong message ordering for each session.
-- Extensible authorization structure. Mithqtt can control operations like Connect Publish Subscribe Unsubscribe by providing authorization plugin.
-- Distributed by design. Mithqtt is decentralized, can easily scale up and out. Nodes talking to each other via communicator.
+- Extensible authorization structure. J1st-mqtt can control operations like Connect Publish Subscribe Unsubscribe by providing authorization plugin.
+- Distributed by design. J1st-mqtt is decentralized, can easily scale up and out. Nodes talking to each other via communicator.
 - Fault tolerance. When used with load balancer, there will be no single point of failure.
-- Redis storage. The only required external dependency is the Redis database, which Mithqtt used to store session state. Redis 2.8 and above is supported (include 3.x cluster).
-- Communicator and $SYS topic. Communicator is a switchable internal implementation based on message queue or rpc. Normally MQTT brokers provide the $SYS topic for server side integration, Mithqtt uses communicator to pass messages to other microservices, which is more flexible and tied into your exist application. Communicator support [Hazelcast](http://hazelcast.org), [Kafka](http://kafka.apache.org) based implementation at the moment.
-- RESTful HTTP interface. Although MQTT is a stateful protocol, Mithqtt provided a HTTP wrapper to MQTT operations. The HTTP server is also scalabe, and can be used both internally and publicly.
-- Optinal [InfluxDB](http://influxdb.com) based metrics. Mithqtt broker can gather MQTT related metrics and push into influxDB.
+- Redis storage. The only required external dependency is the Redis database, which J1st-mqtt used to store session state. Redis 2.8 and above is supported (include 3.x cluster).
+- Communicator and $SYS topic. Communicator is a switchable internal implementation based on message queue or rpc. Normally MQTT brokers provide the $SYS topic for server side integration, J1st-mqtt uses communicator to pass messages to other microservices, which is more flexible and tied into your exist application. Communicator support [Hazelcast](http://hazelcast.org), [Kafka](http://kafka.apache.org) based implementation at the moment.
+- RESTful HTTP interface. Although MQTT is a stateful protocol, J1st-mqtt provided a HTTP wrapper to MQTT operations. The HTTP server is also scalabe, and can be used both internally and publicly.
+- Optinal [InfluxDB](http://influxdb.com) based metrics. J1st-mqtt broker can gather MQTT related metrics and push into influxDB.
 
 ### Architecture
-This is the high level architecture design for a typical application service using Mithqtt.
+This is the high level architecture design for a typical application service using J1st-mqtt.
 - User: Maybe a device or an app speaks MQTT.
 - Load Balancer: TCP (HTTP) load balancer like Pound LVS HAproxy or the service provided by cloud.
-- Communicator: Mithqtt internal commuication implmentation based on Hazelcast or Kafka.
-- MQTT Broker: Mithqtt MQTT broker handle messages from User (through Load Balancer), redirect internal messages to Communicator.
-- MQTT HTTP Interface: Mithqtt MQTT HTTP interface handle requests and transfer to internal messages, send to corresponding MQTT Broker via Communicator.
-- Redis: The main storage for Mithqtt.
+- Communicator: J1st-mqtt internal commuication implmentation based on Hazelcast or Kafka.
+- MQTT Broker: J1st-mqtt MQTT broker handle messages from User (through Load Balancer), redirect internal messages to Communicator.
+- MQTT HTTP Interface: J1st-mqtt MQTT HTTP interface handle requests and transfer to internal messages, send to corresponding MQTT Broker via Communicator.
+- Redis: The main storage for J1st-mqtt.
 - InfluxDB: Optional storage for MQTT Broker and MQTT HTTP Interface metrics.
 - Cloud Service: Application service which can receive inbound MQTT (Internal Format) messages from Communicator, and send outbound MQTT (Internal Format) messages from MQTT HTTP Interface.
 
-![Mithqtt Architecture](https://github.com/12315jack/j1st-mqtt/blob/master/architecture.jpg)
+![J1st-mqtt Architecture](https://github.com/12315jack/j1st-mqtt/blob/master/architecture.jpg)
 
 ### Interoperability Test
-Mithqtt broker is tested against Eclipse Paho's [MQTT Conformance/Interoperability Testing](http://www.eclipse.org/paho/clients/testing/).
+J1st-mqtt broker is tested against Eclipse Paho's [MQTT Conformance/Interoperability Testing](http://www.eclipse.org/paho/clients/testing/).
 
 1. Basic Test
 ~~~

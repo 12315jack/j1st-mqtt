@@ -1,0 +1,8 @@
+dependencies {
+    // project api
+    compile project(':j1st-mqtt-api')
+
+    // hazelcast
+    compile 'com.hazelcast:hazelcast:3.6'
+    compile 'com.hazelcast:hazelcast-client:3.6'
+}
