@@ -1,0 +1,6 @@
+dependencies {
+    // project api
+    compile project(':j1st-mqtt-api')
+
+    compile project(':j1st-mqtt-storage-mongo')
+}
