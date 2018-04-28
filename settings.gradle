@@ -11,4 +11,5 @@ include 'j1st-mqtt-http'
 include 'j1st-mqtt-metrics-influxdb'
 include 'j1st-mqtt-storage-mongo'
 include 'j1st-mqtt-storage-redis'
+include 'j1st-mqtt-communicator-nats'
 
