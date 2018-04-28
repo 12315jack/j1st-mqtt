@@ -126,12 +126,15 @@ public class MqttBroker {
 
         // shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
             public void run() {
                 logger.debug("MQTT broker is shutting down ...");
 
                 workerGroup.shutdownGracefully();
                 bossGroup.shutdownGracefully();
-                if (metricsEnabled) metrics.destroy();
+                if (metricsEnabled) {
+                    metrics.destroy();
+                }
                 communicator.destroy();
                 authenticator.destroy();
 
@@ -176,9 +179,7 @@ public class MqttBroker {
         ChannelFuture f = b.bind(host, port).sync();
 
 
-        /**
-         * 打开SSL的端口监听
-         */
+        //打开SSL的端口监听
         if (ssl) {
 
             String password = brokerConfig.getString("mqtt.ssl.password");
@@ -191,8 +192,8 @@ public class MqttBroker {
             KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
             kmf.init(ks, password.toCharArray());
 
-            final SslContext sslContext = ssl ? SslContextBuilder.forServer(kmf).build() : null;
-            final int sslport = ssl ? brokerConfig.getInt("mqtt.ssl.port") : 8883;
+            final SslContext sslContext = SslContextBuilder.forServer(kmf).build();
+            final int sslPort = brokerConfig.getInt("mqtt.ssl.port");
             ServerBootstrap sslb = new ServerBootstrap();
             sslb.group(bossGroup, workerGroup)
                     .channel(brokerConfig.getBoolean("netty.useEpoll") ? EpollServerSocketChannel.class : NioServerSocketChannel.class)
@@ -224,7 +225,7 @@ public class MqttBroker {
                     .option(ChannelOption.SO_BACKLOG, brokerConfig.getInt("netty.soBacklog"))
                     .childOption(ChannelOption.SO_KEEPALIVE, brokerConfig.getBoolean("netty.soKeepAlive"));
 
-            ChannelFuture sf = sslb.bind(host, sslport).sync();
+            ChannelFuture sf = sslb.bind(host, sslPort).sync();
 
         }
 
