@@ -1,10 +1,11 @@
-package io.j1stiot.mqtt.authenticator.power;
+package com.github.j1stiot.mqtt.authenticator.charger;
 
 import com.github.j1stiot.mqtt.api.auth.Authenticator;
 import com.github.j1stiot.mqtt.api.auth.AuthorizeResult;
 import io.j1st.power.storage.mongo.MongoStorage;
 import io.j1st.power.storage.mongo.entity.ProductStatus;
 import io.j1st.power.storage.mongo.entity.ServiceType;
+import io.j1stiot.mqtt.authenticator.power.PowerAuthenticator;
 import io.netty.handler.codec.mqtt.MqttGrantedQoS;
 import io.netty.handler.codec.mqtt.MqttTopicSubscription;
 import org.apache.commons.configuration.AbstractConfiguration;
@@ -16,11 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Dummy Authenticator
- * This authenticator basically authorize everything, it should only been used for test purpose
+ * validate charger gateway
+ * @author jackyoung
  */
-@SuppressWarnings("unused")
-public class PowerAuthenticator implements Authenticator {
+public class ChargerAuthenticator implements Authenticator {
 
     protected MongoStorage mongoStorage;
     Logger logger = LoggerFactory.getLogger(PowerAuthenticator.class);

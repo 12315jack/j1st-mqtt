@@ -20,7 +20,7 @@ import static com.mongodb.client.model.Projections.include;
 
 
 /**
- * Created by Administrator on 2016/4/27.
+ * Created by jackyoung
  */
 public class MongoStorage {
 
@@ -44,7 +44,9 @@ public class MongoStorage {
 
 
     public void destroy() {
-        if (this.client != null) this.client.close();
+        if (this.client != null) {
+            this.client.close();
+        }
     }
 
     private ServerAddress parseAddress(String address) {
@@ -132,7 +134,9 @@ public class MongoStorage {
                 .find(eq("token", token))
                 .projection(exclude("password"))
                 .first();
-        if (d == null) return null;
+        if (d == null) {
+            return null;
+        }
         return d.getObjectId("_id").toString();
     }
 
@@ -224,7 +228,9 @@ public class MongoStorage {
         Document doc = this.database.getCollection("user_assets_info").find(eq("agent_id", new ObjectId(agentId)))
                 .projection(include("user_id"))
                 .first();
-        if (doc == null) return null;
+        if (doc == null) {
+            return null;
+        }
         return doc.getObjectId("user_id").toString();
     }
 

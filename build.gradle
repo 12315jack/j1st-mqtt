@@ -10,7 +10,7 @@ subprojects {
     version '1.0.0.Beta1-SNAPSHOT'
 
     // JDK
-    sourceCompatibility = 1.8
+    sourceCompatibility = 1.11
 
     // Encoding
     tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
